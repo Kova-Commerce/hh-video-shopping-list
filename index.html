@@ -1,0 +1,1260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>H&H Video Shopping List - Kova Commerce</title>
+  <style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
+
+  :root {
+    --obsidian-black:   #131316;
+    --kova-azure:       #0E86F5;
+    --kova-cyan:        #22D3EE;
+    --kova-emerald:     #34D399;
+    --royal-blue:       #0E86F5;
+    --vivid-violet:     #22D3EE;
+    --neon-lime:        #34D399;
+    --card-bg:          #1A1A1F;
+    --card-border:      #262630;
+    --text-primary:     #EAEAEA;
+    --text-secondary:   #888888;
+    --text-muted:       #555555;
+    --divider:          #2A2A30;
+    --positive-glow:    rgba(52,211,153,0.15);
+    --blue-glow:        rgba(14,134,245,0.25);
+    --cyan-glow:        rgba(34,211,238,0.18);
+    --violet-glow:      rgba(34,211,238,0.18);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    background: var(--obsidian-black);
+    color: var(--text-primary);
+    line-height: 1.6;
+    padding: 40px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── HEADER BAR ── */
+  .report-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 32px;
+    margin-bottom: 32px;
+    border-bottom: 1px solid var(--divider);
+  }
+  .report-header .brand-logo {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .report-header .brand-name {
+    font-weight: 800;
+    font-size: 1.1rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-primary);
+  }
+  .report-header .brand-sub {
+    font-weight: 500;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+  }
+  .report-header .report-meta {
+    text-align: right;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+  }
+
+  /* ── SECTION TITLES ── */
+  h1, h2, h3 {
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--text-primary);
+  }
+  h1 {
+    font-size: 2.4rem;
+    font-weight: 800;
+    margin-bottom: 6px;
+    line-height: 1.15;
+  }
+  h2 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--kova-azure);
+    display: inline-block;
+  }
+  h3 {
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: var(--text-secondary);
+    letter-spacing: 0.18em;
+  }
+
+  /* ── HEADLINE + DESCRIPTION PAIRING ── */
+  .section-desc {
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 24px;
+    text-transform: none;
+    letter-spacing: normal;
+    max-width: 640px;
+  }
+  h1 + .section-desc { margin-top: 4px; }
+  h2 + .section-desc { margin-top: -8px; }
+
+  /* ── SECTION LABELS (small category markers) ── */
+  .section-label {
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--kova-cyan);
+    margin-bottom: 12px;
+    margin-top: 40px;
+  }
+
+  /* ── CARDS ── */
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 32px;
+  }
+
+  /* ── KPI ROW ── */
+  .kpi-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .kpi-box {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+  }
+  .kpi-box .kpi-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-secondary);
+    margin-bottom: 6px;
+  }
+  .kpi-box .kpi-value {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--kova-azure);
+  }
+  .kpi-box .kpi-delta {
+    font-size: 0.75rem;
+    margin-top: 4px;
+  }
+  .kpi-delta.positive { color: var(--kova-emerald); }
+  .kpi-delta.negative { color: var(--text-secondary); }
+
+  /* ── TABLES ── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+  }
+  thead th {
+    text-align: left;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-secondary);
+    padding: 10px 12px;
+    border-bottom: 2px solid var(--divider);
+  }
+  tbody td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--card-border);
+    color: var(--text-primary);
+  }
+  tbody tr:hover { background: rgba(255,255,255,0.02); }
+
+  /* Accent values in tables */
+  .val-blue   { color: var(--kova-azure); font-weight: 600; }
+  .val-violet { color: var(--kova-cyan); font-weight: 600; }
+  .val-cyan   { color: var(--kova-cyan); font-weight: 600; }
+  .val-green  { color: var(--kova-emerald); font-weight: 600; }
+  .val-muted  { color: var(--text-secondary); font-weight: 600; }
+
+  /* ── BADGES / TAGS ── */
+  .badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .badge-blue   { background: var(--blue-glow); color: var(--kova-azure); }
+  .badge-violet { background: var(--cyan-glow); color: var(--kova-cyan); }
+  .badge-cyan   { background: var(--cyan-glow); color: var(--kova-cyan); }
+  .badge-green  { background: var(--positive-glow); color: var(--kova-emerald); }
+  .badge-muted  { background: rgba(255,255,255,0.05); color: var(--text-secondary); }
+
+  /* ── UTILITY ── */
+  .text-blue    { color: var(--kova-azure); }
+  .text-violet  { color: var(--kova-cyan); }
+  .text-cyan    { color: var(--kova-cyan); }
+  .text-green   { color: var(--kova-emerald); }
+  .text-muted   { color: var(--text-muted); }
+  .text-right   { text-align: right; }
+  .mt-1 { margin-top: 8px; }
+  .mt-2 { margin-top: 16px; }
+  .mt-3 { margin-top: 24px; }
+  .mb-1 { margin-bottom: 8px; }
+  .mb-2 { margin-bottom: 16px; }
+  .mb-3 { margin-bottom: 24px; }
+
+  /* ── FOOTER ── */
+  .report-footer {
+    margin-top: 48px;
+    padding-top: 16px;
+    border-top: 1px solid var(--divider);
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  /* ── GLOW EFFECTS ── */
+  .glow-blue   { text-shadow: 0 0 10px rgba(14,134,245,0.6); }
+  .glow-cyan   { text-shadow: 0 0 8px rgba(34,211,238,0.6); }
+  .glow-violet { text-shadow: 0 0 8px rgba(34,211,238,0.6); }
+
+  /* ── PRINT / PDF ── */
+  @media print {
+    body { background: #131316; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .card { break-inside: avoid; }
+  }
+</style>
+<style>
+  .video-card { position: relative; }
+  .video-card-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 12px; flex-wrap: wrap; gap: 8px;
+  }
+  .video-number {
+    font-size: 0.8rem; font-weight: 700; color: var(--text-secondary);
+    margin-left: 10px;
+  }
+  .video-stats {
+    font-size: 0.8rem; color: var(--text-secondary);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .stat-sep { color: var(--text-muted); }
+  .video-title {
+    font-size: 1rem; font-weight: 600; color: var(--text-primary);
+    margin-bottom: 16px; line-height: 1.4;
+  }
+  .filename-section {
+    background: rgba(14,134,245,0.06);
+    border: 1px solid rgba(14,134,245,0.15);
+    border-radius: 8px; padding: 14px 16px;
+  }
+  .filename-label {
+    font-size: 0.6rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.12em; color: var(--kova-cyan); margin-bottom: 8px;
+  }
+  .filename {
+    display: block; font-family: 'Courier New', monospace; font-size: 0.85rem;
+    color: var(--kova-azure); background: var(--obsidian-black);
+    padding: 8px 12px; border-radius: 6px; word-break: break-all;
+    border: 1px solid var(--card-border);
+  }
+  .filename-secondary {
+    display: block; font-family: 'Courier New', monospace; font-size: 0.75rem;
+    color: var(--text-secondary); padding: 2px 0;
+  }
+  .multi-file-note {
+    font-size: 0.75rem; color: var(--text-secondary); margin-bottom: 4px;
+  }
+  .step {
+    display: flex; gap: 16px; margin-bottom: 24px; align-items: flex-start;
+  }
+  .step:last-child { margin-bottom: 0; }
+  .step-num {
+    flex-shrink: 0; width: 36px; height: 36px; border-radius: 50%;
+    background: var(--blue-glow); color: var(--kova-azure);
+    font-weight: 800; font-size: 1rem;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .step-content { flex: 1; }
+  .step-title {
+    font-weight: 700; font-size: 0.95rem; color: var(--text-primary);
+    margin-bottom: 6px;
+  }
+  .step-desc {
+    font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5;
+  }
+  .code-block {
+    background: var(--obsidian-black); border: 1px solid var(--card-border);
+    border-radius: 6px; padding: 12px 16px; margin-top: 8px;
+    font-family: 'Courier New', monospace; font-size: 0.8rem;
+    color: var(--kova-cyan); overflow-x: auto; line-height: 1.5;
+  }
+  @media (max-width: 600px) {
+    body { padding: 16px; }
+    .kpi-row { grid-template-columns: repeat(2, 1fr); }
+    .video-card-header { flex-direction: column; align-items: flex-start; }
+    .report-header { flex-direction: column; gap: 12px; padding: 16px; }
+    .report-header .report-meta { text-align: left; }
+    .step { gap: 12px; }
+    .step-num { width: 28px; height: 28px; font-size: 0.85rem; }
+    .code-block { font-size: 0.7rem; padding: 10px 12px; }
+  }
+</style>
+</head>
+<body>
+
+
+<div class="report-header">
+  <div class="brand-logo">
+    <svg viewBox="0 0 36 36" width="36" height="36">
+  <rect x="0" y="0" width="36" height="36" rx="7" fill="#0D0D14" stroke="rgba(34,211,238,0.10)" stroke-width="1"/>
+  <defs><linearGradient id="kcGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#0E86F5"/><stop offset="100%" style="stop-color:#22D3EE"/></linearGradient></defs>
+  <text x="18" y="25" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="16" letter-spacing="-0.5" fill="url(#kcGrad)">KC</text>
+</svg>
+    <div>
+      <div class="brand-name">Kova</div>
+      <div class="brand-sub">Commerce</div>
+    </div>
+  </div>
+  <div class="report-meta">
+    <div style="font-weight:600; color:var(--text-primary);">Video Shopping List</div>
+    <div>Hyde & Hare</div>
+    <div>5 April 2026</div>
+  </div>
+</div>
+
+<div style="max-width:900px; margin:0 auto;">
+
+  <h1>Missing Videos</h1>
+  <p class="section-desc">
+    33 unique videos needed from H&H Google Drive. 5 are high priority.
+    Find each video, download it, then transfer to the Mac Mini using the instructions below.
+  </p>
+
+  <!-- KPI summary -->
+  <div class="kpi-row">
+    <div class="kpi-box">
+      <div class="kpi-label">Videos Needed</div>
+      <div class="kpi-value">33</div>
+      <div class="kpi-delta" style="color:var(--text-secondary);">50 ad entries deduplicated</div>
+    </div>
+    <div class="kpi-box">
+      <div class="kpi-label">Already Downloaded</div>
+      <div class="kpi-value">90</div>
+      <div class="kpi-delta positive">ready for analysis</div>
+    </div>
+    <div class="kpi-box">
+      <div class="kpi-label">High Priority</div>
+      <div class="kpi-value">5</div>
+      <div class="kpi-delta" style="color:var(--kova-azure);">£22,066 spend</div>
+    </div>
+    <div class="kpi-box">
+      <div class="kpi-label">Total Missing Spend</div>
+      <div class="kpi-value">£27,519</div>
+      <div class="kpi-delta" style="color:var(--text-secondary);">1216 conversions</div>
+    </div>
+  </div>
+
+  <!-- INSTRUCTIONS -->
+  <div class="card" style="border-color: var(--kova-azure); border-width: 2px;">
+    <h2 style="margin-bottom:20px;">How to Transfer Videos to Mac Mini</h2>
+
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <div class="step-title">Find & download from Google Drive</div>
+        <div class="step-desc">Open H&H Google Drive on your phone or laptop. Search by the ad name/description. Download the video file.</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <div class="step-title">SCP to Mac Mini</div>
+        <div class="step-desc">From the device where you downloaded the file, run:</div>
+        <div class="code-block">scp ~/Downloads/whatever-filename.mp4 \<br>&nbsp;&nbsp;caseysnowpersonal@&lt;mac-mini-ip&gt;:~/casey-brain/tools/video-analyzer/incoming/</div>
+        <div class="step-desc" style="margin-top:8px;">
+          <strong>Don't know the IP?</strong> SSH into the Mac Mini first and run: <code style="background:var(--card-bg);padding:2px 6px;border-radius:4px;">hostname -I</code> or check your SSH config.
+        </div>
+        <div class="step-desc" style="margin-top:8px;">
+          <strong>Multiple files at once:</strong>
+        </div>
+        <div class="code-block">scp *.mp4 caseysnowpersonal@&lt;mac-mini-ip&gt;:~/casey-brain/tools/video-analyzer/incoming/</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <div class="step-title">Tell Claude which file is which</div>
+        <div class="step-desc">SSH into the Mac Mini, start a Claude session, and say something like:</div>
+        <div class="code-block" style="white-space:pre-wrap;font-size:0.8rem;">"I uploaded H&H videos to incoming/. Here's the mapping:
+- joey-styling.mp4 is Ad 63 (ways to style sheepskin rugs)
+- ugc-voiceover.mp4 is Ad 1 (UGC with voiceover)
+- white-company.mp4 is Ad 191 (White Company testimonial)"</div>
+        <div class="step-desc" style="margin-top:8px;">Claude will rename the files to the correct filenames, move them to <code style="background:var(--card-bg);padding:2px 6px;border-radius:4px;">videos/</code>, run the Gemini analysis, and generate the report.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRIORITY 1 -->
+  <div class="section-label">Priority 1 - Must-haves</div>
+  <h2>High Priority Videos</h2>
+  <p class="section-desc">5 videos covering £22,066 spend and 1022 conversions. Get these first.</p>
+
+  
+    <div class="card video-card">
+      <div class="video-card-header">
+        <div>
+          <span class="badge badge-blue">HIGH PRIORITY</span>
+          <span class="video-number">#1</span>
+        </div>
+        <div class="video-stats">
+          <span class="val-blue">£9,709</span>
+          <span class="stat-sep">/</span>
+          <span>526 conv</span>
+          <span class="stat-sep">/</span>
+          <span>9.8x ROAS</span>
+          <span class="stat-sep">/</span>
+          <span>5 runs</span>
+        </div>
+      </div>
+      <div class="video-title">Ad 1 - Interiors | UGC Video with voiceover | H-Free Delivery  | P-Softest Sheepskin  | Free Delivery</div>
+      <div class="filename-section">
+        <div class="filename-label">SAVE AS</div>
+        <div class="multi-file-note">Same video, 5 ad runs. Save as the first filename:</div>
+      <code class="filename">120211533148000530.mp4</code>
+      <div class="multi-file-note" style="margin-top:6px;">Also needed as (Claude will duplicate):</div>
+      <code class="filename-secondary">120223650372470530.mp4</code>
+      <code class="filename-secondary">120211219958820530.mp4</code>
+      <code class="filename-secondary">120204543192850530.mp4</code>
+      <code class="filename-secondary">120212885369180530.mp4</code>
+      </div>
+    </div>
+
+    <div class="card video-card">
+      <div class="video-card-header">
+        <div>
+          <span class="badge badge-blue">HIGH PRIORITY</span>
+          <span class="video-number">#2</span>
+        </div>
+        <div class="video-stats">
+          <span class="val-blue">£8,787</span>
+          <span class="stat-sep">/</span>
+          <span>344 conv</span>
+          <span class="stat-sep">/</span>
+          <span>6.8x ROAS</span>
+          <span class="stat-sep">/</span>
+          <span>2 runs</span>
+        </div>
+      </div>
+      <div class="video-title">Ad 63 - Interiors | Ways to style with sheepskin rugs | H-Multiple | P-Multiple | None</div>
+      <div class="filename-section">
+        <div class="filename-label">SAVE AS</div>
+        <div class="multi-file-note">Same video, 2 ad runs. Save as the first filename:</div>
+      <code class="filename">120232948743250530.mp4</code>
+      <div class="multi-file-note" style="margin-top:6px;">Also needed as (Claude will duplicate):</div>
+      <code class="filename-secondary">120223643642290530.mp4</code>
+      </div>
+    </div>
+
+    <div class="card video-card">
+      <div class="video-card-header">
+        <div>
+          <span class="badge badge-blue">HIGH PRIORITY</span>
+          <span class="video-number">#3</span>
+        </div>
+        <div class="video-stats">
+          <span class="val-blue">£1,715</span>
+          <span class="stat-sep">/</span>
+          <span>69 conv</span>
+          <span class="stat-sep">/</span>
+          <span>9.2x ROAS</span>
+          <span class="stat-sep">/</span>
+          <span>3 runs</span>
+        </div>
+      </div>
+      <div class="video-title">Ad 191 - Interiors | b-roll with testimonial text overlay about the white company | None</div>
+      <div class="filename-section">
+        <div class="filename-label">SAVE AS</div>
+        <div class="multi-file-note">Same video, 3 ad runs. Save as the first filename:</div>
+      <code class="filename">120240380887470530.mp4</code>
+      <div class="multi-file-note" style="margin-top:6px;">Also needed as (Claude will duplicate):</div>
+      <code class="filename-secondary">120238847617070530.mp4</code>
+      <code class="filename-secondary">120239795717910530.mp4</code>
+      </div>
+    </div>
+
+    <div class="card video-card">
+      <div class="video-card-header">
+        <div>
+          <span class="badge badge-blue">HIGH PRIORITY</span>
+          <span class="video-number">#4</span>
+        </div>
+        <div class="video-stats">
+          <span class="val-blue">£1,052</span>
+          <span class="stat-sep">/</span>
+          <span>33 conv</span>
+          <span class="stat-sep">/</span>
+          <span>6.3x ROAS</span>
+          <span class="stat-sep">/</span>
+          <span>2 runs</span>
+        </div>
+      </div>
+      <div class="video-title">Ad 172 - Interiors | Home of Hygge b-roll with detailed text overlay | None</div>
+      <div class="filename-section">
+        <div class="filename-label">SAVE AS</div>
+        <div class="multi-file-note">Same video, 2 ad runs. Save as the first filename:</div>
+      <code class="filename">120240774622060530.mp4</code>
+      <div class="multi-file-note" style="margin-top:6px;">Also needed as (Claude will duplicate):</div>
+      <code class="filename-secondary">120239795717760530.mp4</code>
+      </div>
+    </div>
+
+    <div class="card video-card">
+      <div class="video-card-header">
+        <div>
+          <span class="badge badge-blue">HIGH PRIORITY</span>
+          <span class="video-number">#5</span>
+        </div>
+        <div class="video-stats">
+          <span class="val-blue">£803</span>
+          <span class="stat-sep">/</span>
+          <span>50 conv</span>
+          <span class="stat-sep">/</span>
+          <span>8.8x ROAS</span>
+          <span class="stat-sep">/</span>
+          <span>1 run</span>
+        </div>
+      </div>
+      <div class="video-title">Ad 192 - Interiors | BFCM - Joey ways to style sheepskin | 20% off</div>
+      <div class="filename-section">
+        <div class="filename-label">SAVE AS</div>
+        <code class="filename">120238204006030530.mp4</code>
+      </div>
+    </div>
+
+  <!-- PRIORITY 2 -->
+  <div class="section-label">Priority 2 - Nice-to-haves</div>
+  <h2>Medium Priority</h2>
+  <p class="section-desc">12 videos, £4,119 spend. Worth grabbing if they're easy to find.</p>
+
+  
+    <div class="card video-card">
+      <div class="video-card-header">
+        <div>
+          <span class="badge badge-cyan">MEDIUM</span>
+          <span class="video-number">#6</span>
+        </div>
+        <div class="video-stats">
+          <span class="val-blue">£573</span>
+          <span class="stat-sep">/</span>
+          <span>15 conv</span>
+          <span class="stat-sep">/</span>
+          <span>4.1x ROAS</span>
+          <span class="stat-sep">/</span>
+          <span>1 run</span>
+        </div>
+      </div>
+      <div class="video-title">Ad 157 - Interiors | music only with b-roll of slow motion unboxing | complementary hot water bottle</div>
+      <div class="filename-section">
+        <div class="filename-label">SAVE AS</div>
+        <code class="filename">120234450107770530.mp4</code>
+      </div>
+    </div>
+
+    <div class="card video-card">
+      <div class="video-card-header">
+        <div>
+          <span class="badge badge-cyan">MEDIUM</span>
+          <span class="video-number">#7</span>
+        </div>
+        <div class="video-stats">
+          <span class="val-blue">£553</span>
+          <span class="stat-sep">/</span>
+          <span>22 conv</span>
+          <span class="stat-sep">/</span>
+          <span>12.0x ROAS</span>
+          <span class="stat-sep">/</span>
+          <span>2 runs</span>
+        </div>
+      </div>
+      <div class="video-title">Ad 180 - Interiors | Flora - 5 Ways to Style Sheepskin Rug | None</div>
+      <div class="filename-section">
+        <div class="filename-label">SAVE AS</div>
+        <div class="multi-file-note">Same video, 2 ad runs. Save as the first filename:</div>
+      <code class="filename">120238071114200530.mp4</code>
+      <div class="multi-file-note" style="margin-top:6px;">Also needed as (Claude will duplicate):</div>
+      <code class="filename-secondary">120239795717810530.mp4</code>
+      </div>
+    </div>
+
+    <div class="card video-card">
+      <div class="video-card-header">
+        <div>
+          <span class="badge badge-cyan">MEDIUM</span>
+          <span class="video-number">#8</span>
+        </div>
+        <div class="video-stats">
+          <span class="val-blue">£363</span>
+          <span class="stat-sep">/</span>
+          <span>17 conv</span>
+          <span class="stat-sep">/</span>
+          <span>7.0x ROAS</span>
+          <span class="stat-sep">/</span>
+          <span>2 runs</span>
+        </div>
+      </div>
+      <div class="video-title">Ad 155 - Interiors | b-roll of joey using it in many places while voice over of features and benefits | complementary hot water bottle</div>
+      <div class="filename-section">
+        <div class="filename-label">SAVE AS</div>
+        <div class="multi-file-note">Same video, 2 ad runs. Save as the first filename:</div>
+      <code class="filename">120239801462670530.mp4</code>
+      <div class="multi-file-note" style="margin-top:6px;">Also needed as (Claude will duplicate):</div>
+      <code class="filename-secondary">120234450107800530.mp4</code>
+      </div>
+    </div>
+
+    <div class="card video-card">
+      <div class="video-card-header">
+        <div>
+          <span class="badge badge-cyan">MEDIUM</span>
+          <span class="video-number">#9</span>
+        </div>
+        <div class="video-stats">
+          <span class="val-blue">£354</span>
+          <span class="stat-sep">/</span>
+          <span>11 conv</span>
+          <span class="stat-sep">/</span>
+          <span>5.2x ROAS</span>
+          <span class="stat-sep">/</span>
+          <span>1 run</span>
+        </div>
+      </div>
+      <div class="video-title">Ad 113 - Interiors | UGC Heidi 2 quality of materials | H-Multiple | P-Multiple | None</div>
+      <div class="filename-section">
+        <div class="filename-label">SAVE AS</div>
+        <code class="filename">120223649380670530.mp4</code>
+      </div>
+    </div>
+
+    <div class="card video-card">
+      <div class="video-card-header">
+        <div>
+          <span class="badge badge-cyan">MEDIUM</span>
+          <span class="video-number">#10</span>
+        </div>
+        <div class="video-stats">
+          <span class="val-blue">£354</span>
+          <span class="stat-sep">/</span>
+          <span>20 conv</span>
+          <span class="stat-sep">/</span>
+          <span>4.3x ROAS</span>
+          <span class="stat-sep">/</span>
+          <span>1 run</span>
+        </div>
+      </div>
+      <div class="video-title">Ad 178 - Interiors | b-roll of a bedroom with text overlay of products that make a bedroom feel cosy | None</div>
+      <div class="filename-section">
+        <div class="filename-label">SAVE AS</div>
+        <code class="filename">120239795717890530.mp4</code>
+      </div>
+    </div>
+
+    <div class="card video-card">
+      <div class="video-card-header">
+        <div>
+          <span class="badge badge-cyan">MEDIUM</span>
+          <span class="video-number">#11</span>
+        </div>
+        <div class="video-stats">
+          <span class="val-blue">£338</span>
+          <span class="stat-sep">/</span>
+          <span>12 conv</span>
+          <span class="stat-sep">/</span>
+          <span>3.0x ROAS</span>
+          <span class="stat-sep">/</span>
+          <span>1 run</span>
+        </div>
+      </div>
+      <div class="video-title">Ad 177 - Interiors | Charlie tips on styling your living room for luxury | None</div>
+      <div class="filename-section">
+        <div class="filename-label">SAVE AS</div>
+        <code class="filename">120239795717770530.mp4</code>
+      </div>
+    </div>
+
+    <div class="card video-card">
+      <div class="video-card-header">
+        <div>
+          <span class="badge badge-cyan">MEDIUM</span>
+          <span class="video-number">#12</span>
+        </div>
+        <div class="video-stats">
+          <span class="val-blue">£319</span>
+          <span class="stat-sep">/</span>
+          <span>17 conv</span>
+          <span class="stat-sep">/</span>
+          <span>13.6x ROAS</span>
+          <span class="stat-sep">/</span>
+          <span>2 runs</span>
+        </div>
+      </div>
+      <div class="video-title">Ad 182 - Interiors | Lianna creating a cosy corner | None</div>
+      <div class="filename-section">
+        <div class="filename-label">SAVE AS</div>
+        <div class="multi-file-note">Same video, 2 ad runs. Save as the first filename:</div>
+      <code class="filename">120240774589480530.mp4</code>
+      <div class="multi-file-note" style="margin-top:6px;">Also needed as (Claude will duplicate):</div>
+      <code class="filename-secondary">120239795717730530.mp4</code>
+      </div>
+    </div>
+
+    <div class="card video-card">
+      <div class="video-card-header">
+        <div>
+          <span class="badge badge-cyan">MEDIUM</span>
+          <span class="video-number">#13</span>
+        </div>
+        <div class="video-stats">
+          <span class="val-blue">£314</span>
+          <span class="stat-sep">/</span>
+          <span>9 conv</span>
+          <span class="stat-sep">/</span>
+          <span>3.0x ROAS</span>
+          <span class="stat-sep">/</span>
+          <span>2 runs</span>
+        </div>
+      </div>
+      <div class="video-title">Ad 154 - Interiors | family loves hot water bottles with joey voice over and offer | complementary hot water bottle</div>
+      <div class="filename-section">
+        <div class="filename-label">SAVE AS</div>
+        <div class="multi-file-note">Same video, 2 ad runs. Save as the first filename:</div>
+      <code class="filename">120239801462660530.mp4</code>
+      <div class="multi-file-note" style="margin-top:6px;">Also needed as (Claude will duplicate):</div>
+      <code class="filename-secondary">120234221107200530.mp4</code>
+      </div>
+    </div>
+
+    <div class="card video-card">
+      <div class="video-card-header">
+        <div>
+          <span class="badge badge-cyan">MEDIUM</span>
+          <span class="video-number">#14</span>
+        </div>
+        <div class="video-stats">
+          <span class="val-blue">£268</span>
+          <span class="stat-sep">/</span>
+          <span>7 conv</span>
+          <span class="stat-sep">/</span>
+          <span>3.4x ROAS</span>
+          <span class="stat-sep">/</span>
+          <span>2 runs</span>
+        </div>
+      </div>
+      <div class="video-title">Ad 190 - Interiors | cultiver slideshow  | None</div>
+      <div class="filename-section">
+        <div class="filename-label">SAVE AS</div>
+        <div class="multi-file-note">Same video, 2 ad runs. Save as the first filename:</div>
+      <code class="filename">120239795717940530.mp4</code>
+      <div class="multi-file-note" style="margin-top:6px;">Also needed as (Claude will duplicate):</div>
+      <code class="filename-secondary">120238847617100530.mp4</code>
+      </div>
+    </div>
+
+    <div class="card video-card">
+      <div class="video-card-header">
+        <div>
+          <span class="badge badge-cyan">MEDIUM</span>
+          <span class="video-number">#15</span>
+        </div>
+        <div class="video-stats">
+          <span class="val-blue">£234</span>
+          <span class="stat-sep">/</span>
+          <span>6 conv</span>
+          <span class="stat-sep">/</span>
+          <span>7.2x ROAS</span>
+          <span class="stat-sep">/</span>
+          <span>1 run</span>
+        </div>
+      </div>
+      <div class="video-title">Ad 193 - Interiors | BFCM - Jojo best pieces from moonlight | 20% off</div>
+      <div class="filename-section">
+        <div class="filename-label">SAVE AS</div>
+        <code class="filename">120238204006050530.mp4</code>
+      </div>
+    </div>
+
+    <div class="card video-card">
+      <div class="video-card-header">
+        <div>
+          <span class="badge badge-cyan">MEDIUM</span>
+          <span class="video-number">#16</span>
+        </div>
+        <div class="video-stats">
+          <span class="val-blue">£225</span>
+          <span class="stat-sep">/</span>
+          <span>5 conv</span>
+          <span class="stat-sep">/</span>
+          <span>3.3x ROAS</span>
+          <span class="stat-sep">/</span>
+          <span>1 run</span>
+        </div>
+      </div>
+      <div class="video-title">Ad 110 - Interiors | UGC Justyna 1 unboxing w/ benefits overlay | H-Multiple | P-Multiple | None</div>
+      <div class="filename-section">
+        <div class="filename-label">SAVE AS</div>
+        <code class="filename">120223644974370530.mp4</code>
+      </div>
+    </div>
+
+    <div class="card video-card">
+      <div class="video-card-header">
+        <div>
+          <span class="badge badge-cyan">MEDIUM</span>
+          <span class="video-number">#17</span>
+        </div>
+        <div class="video-stats">
+          <span class="val-blue">£224</span>
+          <span class="stat-sep">/</span>
+          <span>5 conv</span>
+          <span class="stat-sep">/</span>
+          <span>6.0x ROAS</span>
+          <span class="stat-sep">/</span>
+          <span>1 run</span>
+        </div>
+      </div>
+      <div class="video-title">Ad 165 - Interiors | UGC for sheepskin rugs, perfect cosy season rug | none</div>
+      <div class="filename-section">
+        <div class="filename-label">SAVE AS</div>
+        <code class="filename">120238847617090530.mp4</code>
+      </div>
+    </div>
+
+  <!-- PRIORITY 3 -->
+  <div class="section-label">Priority 3 - Only if easy</div>
+  <h2>Low Priority</h2>
+  <p class="section-desc">16 videos, all under £200 spend. Skip unless you happen to see them.</p>
+
+  
+    <div class="card video-card">
+      <div class="video-card-header">
+        <div>
+          <span class="badge badge-muted">LOW</span>
+          <span class="video-number">#18</span>
+        </div>
+        <div class="video-stats">
+          <span class="val-blue">£192</span>
+          <span class="stat-sep">/</span>
+          <span>2 conv</span>
+          <span class="stat-sep">/</span>
+          <span>1.0x ROAS</span>
+          <span class="stat-sep">/</span>
+          <span>1 run</span>
+        </div>
+      </div>
+      <div class="video-title">Ad 183 - Interiors | b-roll of a living room with text overlay of transforming it | None</div>
+      <div class="filename-section">
+        <div class="filename-label">SAVE AS</div>
+        <code class="filename">120239795717970530.mp4</code>
+      </div>
+    </div>
+
+    <div class="card video-card">
+      <div class="video-card-header">
+        <div>
+          <span class="badge badge-muted">LOW</span>
+          <span class="video-number">#19</span>
+        </div>
+        <div class="video-stats">
+          <span class="val-blue">£174</span>
+          <span class="stat-sep">/</span>
+          <span>7 conv</span>
+          <span class="stat-sep">/</span>
+          <span>10.7x ROAS</span>
+          <span class="stat-sep">/</span>
+          <span>2 runs</span>
+        </div>
+      </div>
+      <div class="video-title">Ad 174 - Interiors | Home of Hygge b-roll in a bedroom with NO text overlay | None</div>
+      <div class="filename-section">
+        <div class="filename-label">SAVE AS</div>
+        <div class="multi-file-note">Same video, 2 ad runs. Save as the first filename:</div>
+      <code class="filename">120239795717720530.mp4</code>
+      <div class="multi-file-note" style="margin-top:6px;">Also needed as (Claude will duplicate):</div>
+      <code class="filename-secondary">120238847617220530.mp4</code>
+      </div>
+    </div>
+
+    <div class="card video-card">
+      <div class="video-card-header">
+        <div>
+          <span class="badge badge-muted">LOW</span>
+          <span class="video-number">#20</span>
+        </div>
+        <div class="video-stats">
+          <span class="val-blue">£169</span>
+          <span class="stat-sep">/</span>
+          <span>3 conv</span>
+          <span class="stat-sep">/</span>
+          <span>1.2x ROAS</span>
+          <span class="stat-sep">/</span>
+          <span>1 run</span>
+        </div>
+      </div>
+      <div class="video-title">Ad 210 - Natural Comfort | Product Launch | None</div>
+      <div class="filename-section">
+        <div class="filename-label">SAVE AS</div>
+        <code class="filename">120243715027610530.mp4</code>
+      </div>
+    </div>
+
+    <div class="card video-card">
+      <div class="video-card-header">
+        <div>
+          <span class="badge badge-muted">LOW</span>
+          <span class="video-number">#21</span>
+        </div>
+        <div class="video-stats">
+          <span class="val-blue">£138</span>
+          <span class="stat-sep">/</span>
+          <span>5 conv</span>
+          <span class="stat-sep">/</span>
+          <span>8.5x ROAS</span>
+          <span class="stat-sep">/</span>
+          <span>1 run</span>
+        </div>
+      </div>
+      <div class="video-title">Ad 185 - Interiors | Hygge brand video hook 1 - very important word | None</div>
+      <div class="filename-section">
+        <div class="filename-label">SAVE AS</div>
+        <code class="filename">120237902842910530.mp4</code>
+      </div>
+    </div>
+
+    <div class="card video-card">
+      <div class="video-card-header">
+        <div>
+          <span class="badge badge-muted">LOW</span>
+          <span class="video-number">#22</span>
+        </div>
+        <div class="video-stats">
+          <span class="val-blue">£134</span>
+          <span class="stat-sep">/</span>
+          <span>4 conv</span>
+          <span class="stat-sep">/</span>
+          <span>4.3x ROAS</span>
+          <span class="stat-sep">/</span>
+          <span>2 runs</span>
+        </div>
+      </div>
+      <div class="video-title">Ad 189 - Interiors | Hygge brand video hook 5 - mispronunciations compilation  | None</div>
+      <div class="filename-section">
+        <div class="filename-label">SAVE AS</div>
+        <div class="multi-file-note">Same video, 2 ad runs. Save as the first filename:</div>
+      <code class="filename">120239795717830530.mp4</code>
+      <div class="multi-file-note" style="margin-top:6px;">Also needed as (Claude will duplicate):</div>
+      <code class="filename-secondary">120237902842920530.mp4</code>
+      </div>
+    </div>
+
+    <div class="card video-card">
+      <div class="video-card-header">
+        <div>
+          <span class="badge badge-muted">LOW</span>
+          <span class="video-number">#23</span>
+        </div>
+        <div class="video-stats">
+          <span class="val-blue">£93</span>
+          <span class="stat-sep">/</span>
+          <span>4 conv</span>
+          <span class="stat-sep">/</span>
+          <span>8.4x ROAS</span>
+          <span class="stat-sep">/</span>
+          <span>1 run</span>
+        </div>
+      </div>
+      <div class="video-title">Ad 103 - Interiors | UGC Candance 1 w/ Text Overlay | H-Multiple | P-Multiple | None</div>
+      <div class="filename-section">
+        <div class="filename-label">SAVE AS</div>
+        <code class="filename">120223649824780530.mp4</code>
+      </div>
+    </div>
+
+    <div class="card video-card">
+      <div class="video-card-header">
+        <div>
+          <span class="badge badge-muted">LOW</span>
+          <span class="video-number">#24</span>
+        </div>
+        <div class="video-stats">
+          <span class="val-blue">£85</span>
+          <span class="stat-sep">/</span>
+          <span>6 conv</span>
+          <span class="stat-sep">/</span>
+          <span>28.5x ROAS</span>
+          <span class="stat-sep">/</span>
+          <span>1 run</span>
+        </div>
+      </div>
+      <div class="video-title">Ad 164 - Interiors | UGC for sheepskin rugs, perfect cosy season rug | none</div>
+      <div class="filename-section">
+        <div class="filename-label">SAVE AS</div>
+        <code class="filename">120236273896150530.mp4</code>
+      </div>
+    </div>
+
+    <div class="card video-card">
+      <div class="video-card-header">
+        <div>
+          <span class="badge badge-muted">LOW</span>
+          <span class="video-number">#25</span>
+        </div>
+        <div class="video-stats">
+          <span class="val-blue">£77</span>
+          <span class="stat-sep">/</span>
+          <span>6 conv</span>
+          <span class="stat-sep">/</span>
+          <span>6.9x ROAS</span>
+          <span class="stat-sep">/</span>
+          <span>1 run</span>
+        </div>
+      </div>
+      <div class="video-title">Ad 176 - Interiors | Home of Hygge b-roll of autumn living room | None</div>
+      <div class="filename-section">
+        <div class="filename-label">SAVE AS</div>
+        <code class="filename">120239795717790530.mp4</code>
+      </div>
+    </div>
+
+    <div class="card video-card">
+      <div class="video-card-header">
+        <div>
+          <span class="badge badge-muted">LOW</span>
+          <span class="video-number">#26</span>
+        </div>
+        <div class="video-stats">
+          <span class="val-blue">£67</span>
+          <span class="stat-sep">/</span>
+          <span>7 conv</span>
+          <span class="stat-sep">/</span>
+          <span>17.0x ROAS</span>
+          <span class="stat-sep">/</span>
+          <span>2 runs</span>
+        </div>
+      </div>
+      <div class="video-title">Ad 179 - Interiors | b-roll: details of an autumn home | None</div>
+      <div class="filename-section">
+        <div class="filename-label">SAVE AS</div>
+        <div class="multi-file-note">Same video, 2 ad runs. Save as the first filename:</div>
+      <code class="filename">120239795717930530.mp4</code>
+      <div class="multi-file-note" style="margin-top:6px;">Also needed as (Claude will duplicate):</div>
+      <code class="filename-secondary">120238847617080530.mp4</code>
+      </div>
+    </div>
+
+    <div class="card video-card">
+      <div class="video-card-header">
+        <div>
+          <span class="badge badge-muted">LOW</span>
+          <span class="video-number">#27</span>
+        </div>
+        <div class="video-stats">
+          <span class="val-blue">£57</span>
+          <span class="stat-sep">/</span>
+          <span>2 conv</span>
+          <span class="stat-sep">/</span>
+          <span>20.3x ROAS</span>
+          <span class="stat-sep">/</span>
+          <span>2 runs</span>
+        </div>
+      </div>
+      <div class="video-title">Ad 173 - Interiors | Home of Hygge b-roll in a bedroom with text overlay | None</div>
+      <div class="filename-section">
+        <div class="filename-label">SAVE AS</div>
+        <div class="multi-file-note">Same video, 2 ad runs. Save as the first filename:</div>
+      <code class="filename">120239795717750530.mp4</code>
+      <div class="multi-file-note" style="margin-top:6px;">Also needed as (Claude will duplicate):</div>
+      <code class="filename-secondary">120238847617190530.mp4</code>
+      </div>
+    </div>
+
+    <div class="card video-card">
+      <div class="video-card-header">
+        <div>
+          <span class="badge badge-muted">LOW</span>
+          <span class="video-number">#28</span>
+        </div>
+        <div class="video-stats">
+          <span class="val-blue">£45</span>
+          <span class="stat-sep">/</span>
+          <span>0 conv</span>
+          <span class="stat-sep">/</span>
+          <span>0.0x ROAS</span>
+          <span class="stat-sep">/</span>
+          <span>1 run</span>
+        </div>
+      </div>
+      <div class="video-title">Ad 171 - Interiors | Home of Hygge b-roll with NO text overlay | None</div>
+      <div class="filename-section">
+        <div class="filename-label">SAVE AS</div>
+        <code class="filename">120239795717780530.mp4</code>
+      </div>
+    </div>
+
+    <div class="card video-card">
+      <div class="video-card-header">
+        <div>
+          <span class="badge badge-muted">LOW</span>
+          <span class="video-number">#29</span>
+        </div>
+        <div class="video-stats">
+          <span class="val-blue">£30</span>
+          <span class="stat-sep">/</span>
+          <span>1 conv</span>
+          <span class="stat-sep">/</span>
+          <span>3.9x ROAS</span>
+          <span class="stat-sep">/</span>
+          <span>1 run</span>
+        </div>
+      </div>
+      <div class="video-title">Ad 169 - Interiors | unboxing of sheepskin rug and styling on sofa | None</div>
+      <div class="filename-section">
+        <div class="filename-label">SAVE AS</div>
+        <code class="filename">120239795717960530.mp4</code>
+      </div>
+    </div>
+
+    <div class="card video-card">
+      <div class="video-card-header">
+        <div>
+          <span class="badge badge-muted">LOW</span>
+          <span class="video-number">#30</span>
+        </div>
+        <div class="video-stats">
+          <span class="val-blue">£23</span>
+          <span class="stat-sep">/</span>
+          <span>1 conv</span>
+          <span class="stat-sep">/</span>
+          <span>3.4x ROAS</span>
+          <span class="stat-sep">/</span>
+          <span>1 run</span>
+        </div>
+      </div>
+      <div class="video-title">Ad 184 - Interiors | b-roll of a living room with text overlay of transforming it short | None</div>
+      <div class="filename-section">
+        <div class="filename-label">SAVE AS</div>
+        <code class="filename">120239795717740530.mp4</code>
+      </div>
+    </div>
+
+    <div class="card video-card">
+      <div class="video-card-header">
+        <div>
+          <span class="badge badge-muted">LOW</span>
+          <span class="video-number">#31</span>
+        </div>
+        <div class="video-stats">
+          <span class="val-blue">£20</span>
+          <span class="stat-sep">/</span>
+          <span>0 conv</span>
+          <span class="stat-sep">/</span>
+          <span>0.0x ROAS</span>
+          <span class="stat-sep">/</span>
+          <span>1 run</span>
+        </div>
+      </div>
+      <div class="video-title">Ad 170 - Interiors | Home of Hygge b-roll with text overlay | None</div>
+      <div class="filename-section">
+        <div class="filename-label">SAVE AS</div>
+        <code class="filename">120239795717700530.mp4</code>
+      </div>
+    </div>
+
+    <div class="card video-card">
+      <div class="video-card-header">
+        <div>
+          <span class="badge badge-muted">LOW</span>
+          <span class="video-number">#32</span>
+        </div>
+        <div class="video-stats">
+          <span class="val-blue">£17</span>
+          <span class="stat-sep">/</span>
+          <span>0 conv</span>
+          <span class="stat-sep">/</span>
+          <span>0.0x ROAS</span>
+          <span class="stat-sep">/</span>
+          <span>1 run</span>
+        </div>
+      </div>
+      <div class="video-title">Ad 175 - Interiors | Home of Hygge b-roll with detailed text overlay | None</div>
+      <div class="filename-section">
+        <div class="filename-label">SAVE AS</div>
+        <code class="filename">120239795717950530.mp4</code>
+      </div>
+    </div>
+
+    <div class="card video-card">
+      <div class="video-card-header">
+        <div>
+          <span class="badge badge-muted">LOW</span>
+          <span class="video-number">#33</span>
+        </div>
+        <div class="video-stats">
+          <span class="val-blue">£11</span>
+          <span class="stat-sep">/</span>
+          <span>0 conv</span>
+          <span class="stat-sep">/</span>
+          <span>0.0x ROAS</span>
+          <span class="stat-sep">/</span>
+          <span>1 run</span>
+        </div>
+      </div>
+      <div class="video-title">Ad 156 - Interiors | 6 second video "cosiest gift in the world" | complementary hot water bottle</div>
+      <div class="filename-section">
+        <div class="filename-label">SAVE AS</div>
+        <code class="filename">120234450107780530.mp4</code>
+      </div>
+    </div>
+
+</div>
+
+
+<div class="report-footer">
+  <span>Kova Commerce</span>
+  <span>kovacommerce.ai</span>
+  <span>Confidential</span>
+</div>
+
+</body>
+</html>
